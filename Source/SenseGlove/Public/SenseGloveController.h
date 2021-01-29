@@ -22,7 +22,7 @@ enum class ThumperWaveForm : uint8
 	Object_Grasp_30 = 9,
 	Button_Double_100 = 10,
 	Button_Double_60 = 11,
-	Cue_Game_Over = 118,  
+	Cue_Game_Over = 118,
 	Turn_Off = 124,
 	None = 126
 };
@@ -35,12 +35,12 @@ enum class GloveType : uint8
 };
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class USenseGloveController : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	USenseGloveController();
 
@@ -48,26 +48,30 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
+public:
 
 	/* controllerHandle is also used by SenseGloveAnimInstance */
 	SGCore::SG::SenseGlove* controllerHandle;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SenseGlove")
-	TEnumAsByte<GloveType> gloveType = GloveType::RightGlove;
+		TEnumAsByte<GloveType> gloveType = GloveType::RightGlove;
 
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable, Category = "SenseGlove")
-	bool sendBuzz(int thumb, int index, int middle, int ring, int pinky);
+		bool sendBuzz(int thumb, int index, int middle, int ring, int pinky);
 
 	UFUNCTION(BlueprintCallable, Category = "SenseGlove")
-	bool sendForceFeedback(int thumb, int index, int middle, int ring, int pinky);
+		bool sendForceFeedback(int thumb, int index, int middle, int ring, int pinky);
 
 	UFUNCTION(BlueprintCallable, Category = "SenseGlove")
-	bool sendThumper(TEnumAsByte<ThumperWaveForm> wave);
-		
+		bool sendThumper(TEnumAsByte<ThumperWaveForm> wave);
+
+private:
+	int ff[5] = { 0 };
+	int buzz[5] = { 0 };
+
 };
 
 
